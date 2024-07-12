@@ -2,7 +2,7 @@ import Product from "../models/Product";
 
 export const getAllProduct = async (req, res) => {
   try {
-    const data = Product.find();
+    const data = await Product.find({});
     return res.status(201).json({
       message: "Get All Product",
       data,
@@ -12,9 +12,16 @@ export const getAllProduct = async (req, res) => {
   }
 };
 
-export const getDetailProduct = (req, res) => {
-  res.send("Product detail");
-  console.log("Product detail: " + req.params.id);
+export const getDetailProduct = async (req, res) => {
+  try {
+    const data = await Product.findById(req.params.id);
+    return res.status(201).json({
+      message: "Detail product: " + data.name,
+      data,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
 export const createProduct = async (req, res) => {
