@@ -1,14 +1,11 @@
 import express from "express";
 import productRouter from "./routes/product.routes";
 import categoryRouter from "./routes/category.routes";
+import { connectDB } from "./config/connection";
 
 const app = express();
 app.use(express.json());
-
-app.get("/", (req, res) => {
-  res.send("Connect server successfully");
-  console.log("Connect server successfully");
-});
+connectDB();
 
 app.use("/api", productRouter);
 app.use("/api", categoryRouter);
